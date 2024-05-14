@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ma première application Java Web</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: #f0f8ff; /* Bleu clair */
+            color: #333; /* Couleur de texte sombre */
+            font-family: Arial, sans-serif; /* Police de caractères par défaut */
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #007bff; /* Bleu primaire */
+            color: #fff; /* Texte en blanc */
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #0056b3; /* Bleu foncé */
+            color: #fff;
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        section {
+            padding: 20px;
+            text-align: center;
+        }
+
+        form {
+            margin: 0 auto;
+            width: 300px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="email"], input[type="password"], input[type="tel"], input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Bienvenue sur ma première application Java Web !</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+    </nav>
+    
+    <section>
+        <form action="RegisterServlet" method ="post">
+            <label for="email">Email :</label>
+            <input type="email" id="email" name="email" required><br>
+            <label for="telephone">Téléphone :</label>
+            <input type="tel" id="telephone" name="telephone" required><br>
+            <label for="cin">CIN :</label>
+            <input type="text" id="cin" name="cin" required><br>
+            <label for="password">Mot de passe :</label>
+            <input type="password" id="password" name="password" required><br><br>
+            <input type="submit" value="S'inscrire">
+        </form>
+    </section>
+
+</body>
+</html>
