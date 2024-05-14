@@ -1,10 +1,155 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <title>Afficher les Postes</title>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            background-color: #f0f8ff; /* Bleu clair */
+            color: #333; /* Couleur de texte sombre */
+            font-family: Arial, sans-serif; /* Police de caractères par défaut */
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #007bff; /* Bleu primaire */
+            color: #fff; /* Texte en blanc */
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #0056b3; /* Bleu foncé */
+            color: #fff;
+            padding: 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        section {
+            padding: 20px;
+            text-align: center; /* Centrage du contenu */
+        }
+
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+
+        th, td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        td {
+            background-color: #f2f2f2;
+        }
+
+        input[type="button"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="button"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <h1>FSA_BLOG!</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="register.html">S'inscrire</a></li>
+        </ul>
+    </nav>
+    
+    <section>
+        <h2>Liste des Postes</h2>
+        <form id="postForm">
+            <input type="button" value="Afficher Poste" onclick="afficherPostes()">
+        </form>
+        
+        <table id="postTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Texte</th>
+                      <th>Date</th>
+                    <th>Id</th>
+                    <th>Image</th>
+                </tr>
+            </thead>
+            <tbody id="postBody">
+                <!-- Les données des postes seront insérées ici -->
+            </tbody>
+        </table>
+    </section>
 
+    <script>
+        function afficherPostes() {
+        	  var xhr = new XMLHttpRequest();
+        	    xhr.open("GET", "SupprimerServlet", true);
+        	    xhr.onreadystatechange = function () {
+        	        if (xhr.readyState === 4 && xhr.status === 200) {
+        	            // Analyser la réponse JSON
+        	            var posts = JSON.parse(xhr.responseText);
+
+        	            // Récupération de la référence du corps du tableau
+        	            var tbody = document.getElementById("postBody");
+
+        	            // Effacer le contenu actuel du tableau
+        	            tbody.innerHTML = "";
+        	            posts.forEach(function(poste) {
+        	                var row = "<tr>";
+        	                row += "<td>" + poste.id + "</td>";
+        	                row += "<td>" + poste.texte + "</td>";
+        	                row += "<td>" + poste.date + "</td>";
+        	                row += "<td>" + poste.id_utilisateur + "</td>";
+        	                row += "<td>" + poste.chemin_image + "</td>";
+        	                row += "<td><input type='button' value='Supprimer' onclick='supprimerPoste(" + poste.id + ")'></td>";
+        	                row += "</tr>";
+        	                tbody.innerHTML += row;
+        	            });
+        	        }
+        	    };
+        	    xhr.send();
+        }
+
+        function supprimerPoste(id) {
+            // Code JavaScript pour supprimer le poste avec l'ID spécifié
+            // Vous pouvez implémenter la logique de suppression ici, par exemple, en utilisant AJAX
+            alert("Supprimer le poste avec l'ID: " + id);
+        }
+    </script>
 </body>
 </html>

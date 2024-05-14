@@ -35,12 +35,12 @@ public class LoginServlet extends HttpServlet {
                 statement.setString(1, email);
                 statement.setString(2, password);
                 try (ResultSet resultSet = statement.executeQuery()) {
-                	response.sendRedirect("home.html");
+                	response.sendRedirect("home.jsp");
                     if (resultSet.next()) {
-                    	response.sendRedirect("home.html");
+                    	response.sendRedirect("home.jsp");
                     	
                     } else {
-                    	response.sendRedirect("home.html");
+                    	response.sendRedirect("home.jsp");
                     }
                 }
             }
