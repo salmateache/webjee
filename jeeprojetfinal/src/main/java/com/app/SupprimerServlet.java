@@ -32,48 +32,6 @@ public class SupprimerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
      
 
-        String sql = "SELECT * FROM poste";
-        StringBuilder jsonArray = new StringBuilder();
-        jsonArray.append("[");
-        
-        try {
-        		 Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/jeeprojet", "root", "");
-        
-            PreparedStatement stmt = conn.prepareStatement(sql);
-         
-            ResultSet rs = stmt.executeQuery();
-       
-            // Parcours des résultats de la requête
-            boolean first = true;
-            while (rs.next()) {
-                if (!first) {
-                    jsonArray.append(",");
-                }
-                // Construction de chaque poste au format JSON
-                jsonArray.append("{");
-                jsonArray.append("\"id_poste\":").append(rs.getInt("id_poste")).append(",");
-                jsonArray.append("\"texte\":\"").append(rs.getString("texte")).append("\",");
-                jsonArray.append("\"date\":\"").append(rs.getDate("date")).append("\"");
-                jsonArray.append("\"id_utilisateur\":\"").append(rs.getInt("id_utilisateur")).append("\"");
-                jsonArray.append("\"chemin_image\":\"").append(rs.getString("chemin_image")).append("\",");
-                jsonArray.append("}");
-                first = false;
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
-        jsonArray.append("]");
-
-        // Écriture de la réponse JSON
-        response.setContentType("application/json");
-        PrintWriter out = response.getWriter();
-        out.print(jsonArray.toString());
-        out.flush();
     }
         
 
@@ -83,8 +41,30 @@ public class SupprimerServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	     // Récupérer l'ID du poste à supprimer à partir des paramètres de la requête
+        int postId = Integer.parseInt(request.getParameter("id"));
+        
+        // Connexion à la base de données et exécution de la requête de suppression
+        try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/jeeprojet", "root", "");
+             PreparedStatement stmt = conn.prepareStatement("DELETE FROM poste WHERE id_poste = ?")) {
+            
+            // Définir le paramètre de l'ID du poste à supprimer
+            stmt.setInt(1, postId);
+            
+            // Exécuter la requête de suppression
+            int rowsAffected = stmt.executeUpdate();
+            
+            if (rowsAffected > 0) {
+                // La suppression a réussi
+                response.sendRedirect("liste_des_postes.jsp"); // Redirection vers la page de liste des postes
+            } else {
+                // La suppression a échoué
+                response.getWriter().println("La suppression du poste a échoué.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.getWriter().println("Erreur lors de la suppression du poste : " + e.getMessage());
+        }
 	}
 
 }

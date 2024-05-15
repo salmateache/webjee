@@ -48,34 +48,50 @@
             
             ResultSet res = stmt.executeQuery();
     %>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Texte</th>
-                <th>Date</th>
-                <th>ID Utilisateur</th>
-                <th>Chemin d'image</th>
-            </tr>
-        </thead> 
-        <tbody>
-            <% 
-                while(res.next()) {
-            %>
-            <tr>
-                <td><%=res.getInt(1)%></td>
-                <td><%=res.getString(2) %></td>
-                <td><%=res.getDate(3) %></td>
-                <td><%=res.getInt(4) %></td>
-                <td><%=res.getString(5) %></td>
-            </tr>
-            <% 
-                }
-                res.close();
-                con.close();
-            %>
-        </tbody>
-    </table>
+  <table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Texte</th>
+            <th>Date</th>
+            <th>ID Utilisateur</th>
+            <th>Chemin d'image</th>
+            <th>Actions</th> <!-- Nouvelle colonne pour les boutons d'action -->
+        </tr>
+    </thead> 
+    <tbody>
+        <% 
+            while(res.next()) {
+        %>
+        <tr>
+            <td><%=res.getInt(1)%></td>
+            <td><%=res.getString(2) %></td>
+            <td><%=res.getDate(3) %></td>
+            <td><%=res.getInt(4) %></td>
+            <td><%=res.getString(5) %></td>
+            <!-- Nouvelle colonne pour les boutons d'action -->
+            <td>
+                <!-- Bouton de suppression -->
+                <form action="SupprimerServlet" method="post">
+            <!-- Champ caché pour l'ID du poste -->
+            <input type="hidden" name="id" value="<%=res.getInt(1)%>">
+            <!-- Bouton de suppression -->
+            <button type="submit" style="background-color: #007bff; color: white;">Supprimer</button>
+        </form>
+                <!-- Bouton de modification -->
+                <form action="ModifierServlet" method="post">
+                    <input type="hidden" name="id" value="<%=res.getInt(1)%>">
+                    <button type="submit" style="background-color: white; color: white;"><a href="modifier.html">modifier</a></button>
+                </form>
+            </td>
+        </tr>
+        <% 
+            }
+            res.close();
+            con.close();
+        %>
+    </tbody>
+</table>
     <% 
     } catch (SQLException e) {
         e.printStackTrace();
