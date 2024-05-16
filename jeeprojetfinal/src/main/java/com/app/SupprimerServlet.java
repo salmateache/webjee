@@ -1,11 +1,9 @@
 package com.app;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -41,22 +39,27 @@ public class SupprimerServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	     // Récupérer l'ID du poste à supprimer à partir des paramètres de la requête
-        int postId = Integer.parseInt(request.getParameter("id"));
+		String postIdString = request.getParameter("postId");
+		if (postIdString != null) {
+		    int postId = Integer.parseInt(postIdString);
+		  
+		} else {
+		    
+		}
         
-        // Connexion à la base de données et exécution de la requête de suppression
+    
         try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/jeeprojet", "root", "");
              PreparedStatement stmt = conn.prepareStatement("DELETE FROM poste WHERE id_poste = ?")) {
             
-            // Définir le paramètre de l'ID du poste à supprimer
-            stmt.setInt(1, postId);
+        
+            stmt.setString(1, postIdString);
             
             // Exécuter la requête de suppression
             int rowsAffected = stmt.executeUpdate();
             
             if (rowsAffected > 0) {
                 // La suppression a réussi
-                response.sendRedirect("liste_des_postes.jsp"); // Redirection vers la page de liste des postes
+                response.sendRedirect("home.jsp"); // Redirection vers la page de liste des postes
             } else {
                 // La suppression a échoué
                 response.getWriter().println("La suppression du poste a échoué.");

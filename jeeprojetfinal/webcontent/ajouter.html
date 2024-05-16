@@ -81,26 +81,33 @@
 </head>
 <body>
     <header>
-        <h1>FSA_BLOG!</h1>
+        <h1>FSA_BLOG !</h1>
     </header>
     
     <nav>
         <ul>
-            <li><a href="register.html">S'inscrire</a></li>
+             <li><a href="home.jsp">Home</a></li>
         </ul>
     </nav>
     
     <section>
-        <h2>ajout</h2>
-        <form action="AjouterServlet" method ="post"  enctype="multipart/form-data">
-    <label for="texte">Texte :</label><br>
-    <input type="text" id="texte" name="texte" required><br>
-    <label for="date">Date :</label><br>
-    <input type="date" id="date" name="date" required><br>
-    <label for="chemin_image">Image :</label><br>
-    <input type="file" id="chemin_image" name="chemin_image"  required><br><br>
-    <input type="submit" value="Ajouter">
-</form>
+        <h2>Ajouter</h2>
+       <form action="AjouterServlet" method="post"S>
+               
+                <label for="texte">Texte :</label><br>
+                <textarea id="texte" name="texte" rows="4" cols="50"></textarea><br>
+                
+                <label for="date">Date :</label><br>
+                <input type="date" id="date" name="date" ><br>
+    
+                <label for="image">Chemin d'image :</label><br>
+                <input type="file"  name="chemin_image"  ><br>
+                
+           
+                
+                <button type="submit">Enregistrer</button>
+            </form>
+
     </section>
 
 </body>

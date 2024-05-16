@@ -91,16 +91,25 @@
     </nav>
     
     <section>
-        <h2>Modifier</h2>
-        <form action="AjouterServlet" method="post" enctype="multipart/form-data">
-    <label for="texte">Texte :</label><br>
-    <input type="text" id="texte" name="texte" required><br>
-    <label for="date">Date :</label><br>
-    <input type="date" id="date" name="date" required><br>
-    <label for="image">Image :</label><br>
-    <input type="file" id="image" name="image" accept="image/*" required><br><br>
-    <input type="submit" value="Ajouter">
-</form>
+        <h1>Modifier Poste</h1>
+    <form action="AjouterServelet" method="post">
+        <input type="hidden" name="postId" value="<%= request.getParameter("id") %>">
+        <label for="texte">Texte :</label><br>
+        <textarea id="texte" name="texte" rows="4" cols="50"><%= request.getParameter("texte") %></textarea><br>
+        
+        <label for="date">Date :</label><br>
+        <input type="date" id="date" name="date" value="<%= request.getParameter("date") %>"><br>
+        
+        <label for="utilisateur">ID Utilisateur :</label><br>
+        <input type="text" id="utilisateur" name="id_utilisateur" value="<%= request.getParameter("utilisateur") %>"><br>
+        
+        <label for="image">Chemin d'image :</label><br>
+        <input type="text" id="image" name="chemin_image" value="<%= request.getParameter("chemin_image") %>"><br>
+        
+        <!-- Ajoute d'autres champs selon tes besoins -->
+        
+        <button type="submit">Enregistrer</button>
+    </form>
     </section>
 
 </body>

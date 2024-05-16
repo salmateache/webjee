@@ -33,28 +33,30 @@ public class AjouterServlet extends HttpServlet {
             Class.forName("com.mysql.jdbc.Driver");
             try (Connection conn = DriverManager.getConnection(dbURL, dbUsername, dbPassword)) {
               
-                String sql = "INSERT INTO poste VALUES (null, ?, ?, null, ?)";
-                try (PreparedStatement statement = conn.prepareStatement(sql)) {
-             
+            	String sql = "INSERT INTO poste VALUES (null, ?, ?, 1, ?)";
+            	try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            	    statement.setString(1, texte);
+            	    if (dateStr != null && !dateStr.isEmpty()) {
+            	        Date date = Date.valueOf(dateStr);
+            	        statement.setDate(2, date);
+            	    } else {
+            	        statement.setNull(2, java.sql.Types.DATE); // Spécifie que c'est une valeur NULL pour la colonne date
+            	    }
+            	    
+            
+            	        statement.setString(3,chemin_image);
+            	
+            	    
+            	    int rowsInserted = statement.executeUpdate();
+            
                   
-          
-                    statement.setString(1, texte);
-                    if (dateStr != null && !dateStr.isEmpty()) {
-                    Date date = Date.valueOf(dateStr);
-                    statement.setDate(2, date);}
-                    else {
-                    	 statement.setDate(2, null);
-                    }
-                    statement.setString(3, chemin_image);
-                    
-                    // Exécution de la requête SQL
-                    int rowsInserted = statement.executeUpdate();
-                    
-                    // Vérification si l'ajout a réussi
                     if (rowsInserted > 0) {
+                    	
                         out.println("<h2>Ajout réussi !</h2>");
+                     	response.sendRedirect("home.jsp");
                     } else {
                         out.println("<h2>Erreur lors de l'ajout du poste.</h2>");
+                     	response.sendRedirect("home.jsp");
                     }
                 }
             }

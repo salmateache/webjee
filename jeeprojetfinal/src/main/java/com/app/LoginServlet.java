@@ -37,10 +37,10 @@ public class LoginServlet extends HttpServlet {
                 try (ResultSet resultSet = statement.executeQuery()) {
                 	response.sendRedirect("home.jsp");
                     if (resultSet.next()) {
-                    	response.sendRedirect("home.jsp");
+                    	
                     	
                     } else {
-                    	response.sendRedirect("home.jsp");
+                    	response.sendRedirect("index.html");
                     }
                 }
             }
@@ -54,7 +54,5 @@ public class LoginServlet extends HttpServlet {
 		}
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	response.sendRedirect("home.html");
-    }
+  
 }
