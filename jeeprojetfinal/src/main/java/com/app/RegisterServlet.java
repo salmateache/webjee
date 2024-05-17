@@ -47,9 +47,9 @@ public class RegisterServlet extends HttpServlet {
 	                statement.setString(3, email);
 	                statement.setString(4, password);
 	                int rowsAffected = statement.executeUpdate();
-	            	response.sendRedirect("home.html");
+	            	
 	                if (rowsAffected > 0) {
-	                	response.sendRedirect("home.html");
+	                	response.sendRedirect("home.jsp");
 	                } else {
 	                    out.print("Échec de l'insertion !");
 	                }

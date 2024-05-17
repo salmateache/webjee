@@ -99,6 +99,7 @@
  
   <button><a href="index.html"style="color: white;">logout</a></button>
    <button><a href="ajouter.html"style="color: white;">Ajouter un Poste </a></button>
+   
 
 </div>
     
